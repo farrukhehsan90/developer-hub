@@ -4,6 +4,8 @@ const app=express();
 const bodyParser=require('body-parser');
 const passport=require('passport');
 
+const path=require('path');
+
 const db=require('./config/keys').mongoURI;
 
 //Connect MongoDB
@@ -32,6 +34,15 @@ app.get('/',(req,res)=>{
 app.use('/api/users',users);
 app.use('/api/profile',profile);
 app.use('/api/posts',post);
+
+//Serve static assets
+if(process.env.NODE_ENV==='production'){
+    app.use(express.static('client/build'));
+
+    app.get('*',(req,res)=>{
+        res.sendfile(path.resolve(__dirname,'client','build','index.html'));
+    })
+}
 
 //listen
 app.listen(PORT,()=>{
