@@ -3,10 +3,10 @@ const mongoose=require('mongoose');
 const app=express();
 const bodyParser=require('body-parser');
 const passport=require('passport');
-
 const path=require('path');
-
-const db=require('./config/keys').mongoURI;
+const keys=require('./config/keys');
+const db=keys.mongoURI;
+const sendMail=require('./utils/mail/mail');
 
 //Connect MongoDB
 mongoose.connect(db)
@@ -43,6 +43,8 @@ if(process.env.NODE_ENV==='production'){
         res.sendfile(path.resolve(__dirname,'client','build','index.html'));
     })
 }
+
+// sendMail("farrukhehsan90@gmail.com","Farrukh Ehsan",null,"welcome");
 
 //listen
 app.listen(PORT,()=>{

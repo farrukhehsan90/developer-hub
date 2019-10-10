@@ -9,6 +9,8 @@ const passport = require("passport");
 const validateRegister = require("../../validation/register");
 const validateLogin = require("../../validation/login");
 
+console.log('Users',Users);
+
 router.get("/test", (req, res) => {
   return res.json({ msg: "Users is Working" });
 });
